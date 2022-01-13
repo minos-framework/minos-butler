@@ -1,20 +1,12 @@
 up:
 	$(MAKE) build
 	echo "Starting containers..."
-	docker-compose up --quiet-pull --detach
+	docker run -t -d butler
 
 build:
 	echo "Building images..."
-	docker-compose build --progress=plain --pull
+	docker build -t butler .
 
 down:
 	echo "Stopping containers..."
-	docker-compose down --remove-orphans
-
-logs:
-	echo "Showing logs..."
-	docker-compose logs --follow
-
-export-logs:
-	echo "Showing logs..."
-	docker-compose logs --no-color > logs.txt
+	docker stop butler
